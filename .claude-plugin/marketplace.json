@@ -1,0 +1,12 @@
+{
+  "name": "relativity-builder-skills",
+  "owner": {
+    "name": "Relativity Developer Services"
+  },
+  "plugins": [
+    {
+      "name": "relativity-builder-skills",
+      "source": "."
+    }
+  ]
+}
