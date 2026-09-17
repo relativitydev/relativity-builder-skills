@@ -27,5 +27,3 @@ skills/
 
 Instructions Claude follows when the skill runs. Keep `SKILL.md` itself focused; move long reference
 material into a separate file in the same folder and link to it instead of inlining everything.
-
-See [CONTRIBUTING.md](../../CONTRIBUTING.md) for how to add and submit a real skill.
