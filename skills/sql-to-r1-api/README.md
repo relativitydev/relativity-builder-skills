@@ -143,6 +143,13 @@ spec's schema does not list. Write the step using the doc page's form and name t
 that step's `VERIFY BEFORE USE` line and in the testing checklist, so the reader knows to try the
 other form if the first one fails.
 
+**A form missing from the spec does not mean it does not exist.** The specs are not complete for
+every request shape. Object Manager's mass update forms (`massRequestByCriteria`,
+`massRequestByObjectIdentifiers`, `massRequestPerObjects`) are documented on the Object Manager page
+but absent from the spec's `UpdateAsync_RequestBody`, which lists only the single-object form. When
+the doc page shows a form and the spec does not, use the doc page's form and flag the gap in VERIFY.
+Never fall back to a loop of single-object calls because the spec lacks the bulk form.
+
 **Cite only URLs you actually retrieved.** Never construct a documentation URL that looks right. If
 you could not reach the docs, write `DOCUMENTATION: not verified (could not reach the catalog)`
 rather than a plausible link.
@@ -232,7 +239,7 @@ Common SQL-to-API starting points, each to be confirmed against the live index:
 | SELECT from workspace document or field tables | Object Manager, ArtifactTypeID 10 (Document) / 14 (Field) |
 | UPDATE document fields | Object Manager mass update |
 | Resolve a saved search Artifact ID (a `<search>` script input) | Keyword Search Manager, query by name; dtSearch saved searches are under dtSearch Manager |
-| Resolve a field Artifact ID (a `<field>` script input, or a field the calls need by ID) | Object Manager query on ArtifactTypeID 14 filtered by `'Name'`; check the object type too, since field names repeat across object types |
+| Resolve a field Artifact ID (a `<field>` script input, or a field the calls need by ID) | Object Manager query on ArtifactTypeID 14 with the object type in the condition, since field names repeat across object types: `'Name' == 'Extracted Text' AND 'FieldArtifactTypeID' == 10` (10 = Document). `'Object Type' == 'Document'` also works. Request `Name`, `Object Type` and `Field Type` to confirm the match. Zero rows means the field does not exist in that workspace. |
 | SELECT choices or code values | Choice Manager |
 | SELECT dtSearch index state | dtSearch Manager |
 | SELECT billing or storage metrics | Billing Insights / Usage Reports |
@@ -330,6 +337,14 @@ conditions cannot be combined with other conditions in a compound query; Data Gr
 
 ### 6. Rules that override a plausible-looking mapping
 
+- **Column names are not field names.** Workspace SQL columns are the field's display name with
+  spaces and punctuation stripped: `[ExtractedTextSize]` is the field "Extracted Text Size". API
+  conditions and field references use the display name, and a condition on the column name matches
+  nothing. Resolve every column to its field display name, and give the output a step that looks
+  the field up (see the field lookup row in section 4). The field may also not exist in the target
+  workspace: a column the legacy script relied on is not guaranteed to exist as a field in every
+  workspace. If the script writes to it, say in PERMISSIONS NEEDED that the reader may first need to
+  create it, with its field type.
 - **Long text may live in Data Grid.** Fields such as Extracted Text can be stored in Data Grid
   rather than SQL. A legacy script that read the SQL column directly silently missed Data Grid
   text, so its results were already wrong for those workspaces. APIs read either store. If the
@@ -427,6 +442,24 @@ REQUEST BODY with a `LOGIC:` section: the exact calculation, its inputs (which e
 response fields), its output (which later step consumes it), and how nulls and empty values are
 handled to match the SQL. Keep the other sections, and name in VERIFY how to check the result
 against the legacy behavior.
+
+**Byte and length math.** Size, length and checksum scripts are common, and they are where a
+client-side step most often drifts from the original. Match the SQL exactly:
+
+- `DATALENGTH` on `nvarchar` counts 2 bytes per UTF-16 code unit; on `varchar` it counts 1 byte per
+  character. Relativity long text fields are `nvarchar(max)`, so `DATALENGTH` of extracted text is
+  the UTF-16 code-unit count times 2. `LEN` is different again: it counts characters and ignores
+  trailing spaces.
+- Compute from the decoded string, not from raw response bytes. A stream may arrive in UTF-16 with
+  or without a byte-order mark, or in another encoding; the decoded string's UTF-16 length is the
+  same either way. `string.Length` in C# and `string.length` in JavaScript already count UTF-16
+  code units. Never measure UTF-8 bytes; that undercounts most text by about half.
+- Match SQL Server's rounding when the result lands in a decimal column: it rounds half away from
+  zero to the column's scale (2 places for Relativity decimal fields). JavaScript's `Math.round`
+  matches for positive values; C#'s `Math.Round` does not by default (it rounds half to even), so
+  use `MidpointRounding.AwayFromZero`.
+- Match the SQL's null handling. `ISNULL(x, '')` turns a null into an empty string (size 0), not a
+  skipped row.
 
 **The token call is not JSON.** If the authentication call appears as a step, its header is
 `Content-Type: application/x-www-form-urlencoded`, not `application/json`.
