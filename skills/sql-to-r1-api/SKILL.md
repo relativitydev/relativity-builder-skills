@@ -103,12 +103,32 @@ curl -sS -L -o "$REF/OASFiles.zip" https://platform.relativity.com/RelativityaiR
 The bundle holds one spec per API and is the best source of truth for exact endpoint paths, verbs,
 request and response shapes, required parameters, enum values and status codes. Inspect the
 extracted specs with `Grep` and `Read` rather than a `python` one-liner, which stops for a
-permission prompt. Some specs are minified onto a single line, so grep with `-o` for the path or
-schema name you want rather than printing whole matching lines.
+permission prompt. The specs are pretty-printed JSON or YAML, and most of what you need is behind a
+`$ref`, so read them in three hops:
 
-Doc pages fetched with `curl` come back as full HTML, mostly navigation, CSS and script. Strip the
-tags and search the remaining text for the section you need rather than reading the page top to
-bottom.
+```bash
+unzip -o -q "$REF/OASFiles.zip" -d "$REF/oas"
+S="$REF/oas/Relativity.ObjectManager.Server.ObjectManager.V1.json"
+# 1. The operation: its verb and the $refs for its parameters and request body
+grep -n -A25 '"/Relativity.ObjectManager/v1/workspace/{workspaceID}/object/update"' "$S" | grep -E '\$ref|"(get|post|put|delete)"'
+# 2. Where each parameter goes ("in": "path", "query" or "header")
+grep -n -A6 '"runID": {' "$S"
+# 3. The request body schema, then follow any $ref inside it the same way
+grep -n -A12 '"UpdateAsync_RequestBody": {' "$S"
+```
+
+Doc pages fetched with `curl` come back as full HTML, mostly navigation, CSS and script. Strip them
+to text with this, then grep the text file for the section you need rather than reading it top to
+bottom:
+
+```bash
+curl -sS -L "{docPageUrl}" \
+  | sed -e '/<style/,/<\/style>/d' -e '/<script/,/<\/script>/d' -e 's/<[^>]*>/\n/g' \
+  | sed -e 's/&#160;/ /g' -e 's/&nbsp;/ /g' -e 's/&quot;/"/g' -e "s/&#39;/'/g" \
+        -e 's/&lt;/</g' -e 's/&gt;/>/g' -e 's/&amp;/\&/g' \
+  | tr -s ' \t' | grep -v '^[[:space:]]*$' > "$REF/page.txt"
+grep -n -i -A5 "{topic}" "$REF/page.txt"
+```
 
 **When the docs and the spec disagree**, do not silently pick one. It happens: a doc sample may put
 a value in the JSON body while the spec declares it a query parameter, or a doc may show a request
@@ -127,8 +147,13 @@ not fully overlap. Because this skill emits Postman-consumable HTTP calls, a `.N
 - Domain has only a `(.NET)` page → **gap.** The capability is SDK-only and needs a custom
   Relativity application or agent; it cannot be called from Postman.
 - Domain has neither → **gap.** No public API at all.
+- Domain has a `(REST)` page, but the operation you need is not on it → **gap**, labelled "REST
+  service exists, operation not exposed". Some REST pages have a near-empty `Headings:` line (just
+  the H1), so the catalog cannot settle this on its own. Open the service's OpenAPI spec and list
+  its paths (JSON specs: `grep -n '^    "/' "$S"`; YAML specs: `grep -n "^  '\?/" "$S"`) before
+  concluding the operation is missing.
 
-Run this test before declaring any gap, and say which of the three cases applies.
+Run this test before declaring any gap, and say which of the four cases applies.
 
 ### REST service → domain routing table
 
@@ -149,6 +174,7 @@ since new services appear between updates to this file.
 | Data Visualization | Layout Manager, Object Rule Manager, Tab Manager, View Manager |
 | Document Viewer | Annotations Manager, Document Viewer Services, Persistent Highlight Service, Short Message Viewer Manager |
 | dtSearch | dtSearch, dtSearch Manager |
+| Keyword Search | **Keyword Search Manager** (saved keyword searches) |
 | Environment | Application Install, Error Manager, Export, **Instance Setting Manager**, Library Application, **Matter Manager**, Resource File, **Workspace Manager** |
 | Extensibility | Event Handler Manager, Legacy Search Provider Manager, Mass Operation Manager, **Script Manager**, Search Provider |
 | Identity | Authentication provider type, **Client Manager**, Federated Instance Manager, **Group Manager**, Login Profile Manager, OAuth2 Client Manager, **Permission Manager** |
@@ -244,6 +270,10 @@ Identify:
 - **Core operation:** SELECT, UPDATE, DELETE, INSERT.
 - **Filters and conditions:** date ranges, status checks, JOIN keys, WHERE clauses.
 - **Output shape:** which columns are returned or written.
+- **Where the data lives.** Long text fields such as Extracted Text may be stored in Data Grid
+  rather than SQL. A legacy script that reads the SQL column directly silently misses Data Grid
+  text, so its results were already wrong for those workspaces. APIs read either store. If the
+  script reads long text, say this in the output's IMPORTANT NOTE.
 
 Note any pattern with no obvious API equivalent. Check it against `api_map.md`'s "No API
 Equivalent" table first, then verify in Step 3b regardless of whether it is already listed there;
@@ -256,11 +286,16 @@ into the product as a mass operation, application or standard feature. When that
 answer for the customer is usually "use the built-in feature", with the API workflow as the
 fallback for automation. Check before mapping anything:
 
-1. Grep `user-llms.txt` for the script's name and for two or three key words from its description
-   or its target field: `grep -n -i "extracted text size" "$REF/user-llms.txt"`.
-2. Grep for retired library scripts and mass operations specifically:
-   `grep -n -i "Library_scripts\|Mass_operations" "$REF/user-llms.txt" | grep -i "<key word>"`.
-3. Open any page that matches. A retired library script's page usually names its replacement.
+1. Build two or three search phrases. A script's full name rarely matches a doc title, so reduce it
+   to its core noun phrase: drop numbering ("01"), scope words ("From Saved Search", "For
+   Workspace"), and verbs ("Set", "Populate", "Update"). Add the name of the field or object the
+   script writes. For "01 Set Extracted Text Size From Saved Search", that gives "extracted text
+   size", "text size" and "long text size".
+2. Grep `user-llms.txt` for each phrase: `grep -n -i "extracted text size" "$REF/user-llms.txt"`.
+3. Grep retired library scripts and mass operations for the same phrases:
+   `grep -n -i "Library_scripts\|Mass_operations" "$REF/user-llms.txt" | grep -i "text size"`.
+4. Open any page that matches, stripped to text as described under "Fetching the documentation
+   catalogs". A retired library script's page usually names its replacement.
 
 If a built-in replacement exists, lead the output's OVERVIEW with it as the recommended path: what it
 is, the doc URL, how to run it, and whether it is reachable from the API at all (check the REST API
@@ -281,6 +316,8 @@ is a starting point, not a source of truth.
 | SELECT from document/field tables in a workspace DB | Object Manager (ArtifactTypeID 10 for Documents, 14 for Fields) |
 | UPDATE document fields, same value for every row | Object Manager `object/update`, `massRequestByCriteria` or `massRequestByObjectIdentifiers` |
 | UPDATE document fields, a different value per row | Object Manager `object/update`, `massRequestPerObjects` |
+| Resolve a saved search Artifact ID (a `<search>` script input) | Keyword Search Manager (REST), query by name. dtSearch saved searches are under dtSearch Manager. |
+| Resolve a field Artifact ID (a `<field>` script input, or a field the calls need by ID) | Object Manager query on ArtifactTypeID 14 filtered by `'Name'`. Check the field's object type too, since field names repeat across object types. |
 | SELECT choices / code values | Choice Manager API |
 | SELECT dtSearch index state | dtSearch Manager API |
 | SELECT billing / storage metrics | Usage Reports / Billing Insights API |
@@ -323,9 +360,9 @@ the reader can import it instead of hand-building the call.
 One block per call:
 
 ```
-================================================================================
+==============================================================================
  STEP N: [Purpose]
-================================================================================
+==============================================================================
 
 PURPOSE: [What this replaces in the legacy SQL; one sentence]
 
@@ -356,6 +393,18 @@ VERIFY BEFORE USE: [ ] Run this call against a non-production instance and confi
   exists at all.]
 ```
 
+**Steps with no API call.** When part of the legacy SQL is a computation no API performs (a
+`DATALENGTH`, a string transform, a join of two result sets), give it its own step in call order,
+titled `STEP N: [Purpose] (client side, no API call)`. Replace URL, METHOD, AUTH, HEADERS and
+REQUEST BODY with a `LOGIC:` section: the exact calculation, its inputs (which earlier step's
+response fields), its output (which later step consumes it), and how nulls and empty values are
+handled to match the SQL. Keep `PURPOSE`, `DOCUMENTATION` (the page that defines the semantics, if
+any), `NOTES` and `VERIFY BEFORE USE`. These steps are the easiest place for a conversion to drift
+from the original, so name in VERIFY how to check the result against the legacy behavior.
+
+**The token call is not JSON.** If the authentication call appears as a step, its header is
+`Content-Type: application/x-www-form-urlencoded`, not the `application/json` in the template.
+
 The `VERIFY BEFORE USE` line is not boilerplate. Name the specific weak point in that specific
 call. If you are confident in every part of it, say what the confidence rests on ("path and body
 copied from the OpenAPI spec; the Saved Search condition syntax is inferred").
@@ -365,9 +414,9 @@ Lead the document with:
 1. A VERIFICATION REQUIRED banner, first thing in the file, before the overview:
 
 ```
-================================================================================
+==============================================================================
  VERIFICATION REQUIRED: READ BEFORE USING THIS FILE
-================================================================================
+==============================================================================
 
 This workflow was generated by an AI assistant from Relativity's published
 documentation. It has NOT been executed against any Relativity instance.
@@ -411,7 +460,9 @@ current OS rather than hardcoding a username or a folder name. On Windows, ask t
 the Desktop away from `%USERPROFILE%\Desktop`, which then does not exist. Use `~/Desktop` on
 Mac or Linux.
 
-Filename: `{script-name}_API_Workflow.txt`.
+Filename: `{script-name}_API_Workflow.txt`, where `{script-name}` is the script's name with spaces
+and any character that is not a letter, digit, `-` or `_` replaced by `_`. For example,
+`01_Set_Extracted_Text_Size_From_Saved_Search_API_Workflow.txt`.
 
 Then print a short summary: script name, APIs used, any gaps found with their labels, and the
 output path. End that summary by repeating, in your own words, that none of these calls has been
@@ -462,7 +513,9 @@ everything matching a condition), `massRequestByObjectIdentifiers` (one value fo
 Artifact IDs), or `massRequestPerObjects` (a different value per object: `Fields`, then
 `ObjectValues` carrying `object` and `values`, in the same order as the fields). A SQL `UPDATE`
 whose SET expression differs per row converts to `massRequestPerObjects`, never to a loop of
-single updates. The identifier field cannot be written by any of them. Source: https://platform.relativity.com/RelativityaiR/Content/BD_Object_Manager/Object_Manager_service.htm
+single updates. The documentation gives no per-call object limit, so suggest batches of about
+1,000, say it is a starting point rather than a documented number, and tell the reader to adjust it
+based on response times and 429s. The identifier field cannot be written by any of them. Source: https://platform.relativity.com/RelativityaiR/Content/BD_Object_Manager/Object_Manager_service.htm
 
 **Audit API variants:** the `query` endpoint is workspace-scoped and uses `CompositeCondition` plus
 `TokenCondition` filter syntax; the `UI/query` endpoint supports instance level (`-1`) and uses
@@ -473,6 +526,7 @@ string-based condition syntax.
 ```
 URL:     https://{your}.relativity.one/Relativity/Identity/connect/token
 METHOD:  POST
+CONTENT-TYPE: application/x-www-form-urlencoded
 AUTHENTICATION: https://platform.relativity.com/RelativityaiR/Content/REST_API/REST_API_authentication.htm#BearerTokenAuthentication
 HEADERS: https://platform.relativity.com/RelativityaiR/Content/REST_API/HTTP_headers.htm
 REQUEST BODY (form-encoded):

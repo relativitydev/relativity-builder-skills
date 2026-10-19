@@ -15,6 +15,7 @@ All API calls require a Bearer Token (OAuth2 Client Credentials flow).
 **Step 1: Get a token:**
 ```
 POST https://{your-instance}.relativity.one/Relativity/Identity/connect/token
+Content-Type: application/x-www-form-urlencoded
 
 Body (form-encoded):
   grant_type=client_credentials

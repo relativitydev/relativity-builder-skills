@@ -126,12 +126,16 @@ text, public and unauthenticated:
   feature actually means before mapping it.
 
 Each is roughly 700 KB, so fetch and search rather than reading either end to end. If you can only
-retrieve part of a page, say which part you saw.
+retrieve part of a page, say which part you saw. Individual doc pages are mostly navigation, CSS and
+script; skip to the article text rather than reading them top to bottom.
 
 For exact request and response shapes, Relativity publishes its OpenAPI specs as one public
 download: `https://platform.relativity.com/RelativityaiR/Content/OASFiles/OASFiles.zip`. Use it
-when a step needs a precise payload. If you cannot open a zip archive, open the specific
-documentation page for that service instead and say that is what you did.
+when a step needs a precise payload. The specs are pretty-printed JSON or YAML, and most of what
+you need sits behind a `$ref`: find the operation's path, follow its parameter `$ref`s to see
+whether each goes in the path, query string or header, then follow its request body `$ref` to the
+schema. If you cannot open a zip archive, open the specific documentation page for that service
+instead and say that is what you did.
 
 **When the docs and the spec disagree**, do not silently pick one. A doc sample may put a value in
 the JSON body while the spec declares it a query parameter, or a doc may show a request form the
@@ -152,18 +156,25 @@ Because this output is HTTP calls, a .NET-only API is a gap:
 - Only a `(.NET)` page exists → **gap.** SDK-only; it needs a custom Relativity application or
   agent and cannot be called over HTTP.
 - Neither → **gap.** No public API.
+- A `(REST)` page exists, but the operation you need is not on it → **gap**, labelled "REST service
+  exists, operation not exposed". Some REST pages have a near-empty `Headings:` line, so the index
+  cannot settle this alone. Check the service's OpenAPI spec for the path before concluding the
+  operation is missing.
 
-Run this test before declaring any gap, and say which of the three cases applies.
+Run this test before declaring any gap, and say which of the four cases applies.
 
 ### 3b. Check for a built-in replacement first
 
 Many legacy scripts were Relativity library scripts, or did a job Relativity has since built into
 the product as a mass operation, application or standard feature. When that is true, the best
 answer is usually "use the built-in feature", with the API workflow as the fallback for automation.
-Before mapping anything, search `https://help.relativity.com/llms.txt` for the script's name and for
-two or three key words from its description or target field, paying particular attention to
-entries under `Library_scripts` and `Mass_operations`. Open any page that matches; a retired
-library script's page usually names its replacement.
+Before mapping anything, search `https://help.relativity.com/llms.txt` with two or three phrases,
+paying particular attention to entries under `Library_scripts` and `Mass_operations`. A script's
+full name rarely matches a doc title, so reduce it to its core noun phrase: drop numbering ("01"),
+scope words ("From Saved Search", "For Workspace") and verbs ("Set", "Populate", "Update"), and add
+the name of the field or object the script writes. For "01 Set Extracted Text Size From Saved
+Search", that gives "extracted text size", "text size" and "long text size". Open any page that
+matches; a retired library script's page usually names its replacement.
 
 If a replacement exists, lead the OVERVIEW with it as the recommended path: what it is, the doc URL,
 how to run it, whether it can be triggered through an API at all, and whether it reproduces the
@@ -188,6 +199,7 @@ than this list.
 | Data Visualization | Layout Manager, Object Rule Manager, Tab Manager, View Manager |
 | Document Viewer | Annotations Manager, Document Viewer Services, Persistent Highlight Service, Short Message Viewer Manager |
 | dtSearch | dtSearch, dtSearch Manager |
+| Keyword Search | Keyword Search Manager (saved keyword searches) |
 | Environment | Application Install, Error Manager, Export, Instance Setting Manager, Library Application, Matter Manager, Resource File, Workspace Manager |
 | Extensibility | Event Handler Manager, Legacy Search Provider Manager, Mass Operation Manager, Script Manager, Search Provider |
 | Identity | Authentication provider type, Client Manager, Federated Instance Manager, Group Manager, Login Profile Manager, OAuth2 Client Manager, Permission Manager |
@@ -219,6 +231,8 @@ Common SQL-to-API starting points, each to be confirmed against the live index:
 | SELECT from instance Matter tables | Object Manager, ArtifactTypeID 21 |
 | SELECT from workspace document or field tables | Object Manager, ArtifactTypeID 10 (Document) / 14 (Field) |
 | UPDATE document fields | Object Manager mass update |
+| Resolve a saved search Artifact ID (a `<search>` script input) | Keyword Search Manager, query by name; dtSearch saved searches are under dtSearch Manager |
+| Resolve a field Artifact ID (a `<field>` script input, or a field the calls need by ID) | Object Manager query on ArtifactTypeID 14 filtered by `'Name'`; check the object type too, since field names repeat across object types |
 | SELECT choices or code values | Choice Manager |
 | SELECT dtSearch index state | dtSearch Manager |
 | SELECT billing or storage metrics | Billing Insights / Usage Reports |
@@ -235,6 +249,7 @@ Common SQL-to-API starting points, each to be confirmed against the live index:
 
 ```
 POST https://{your-instance}.relativity.one/Relativity/Identity/connect/token
+Content-Type: application/x-www-form-urlencoded
 
 Body (form-encoded):
   grant_type=client_credentials
@@ -283,7 +298,9 @@ single-object update, and the body selects the form:
 | `massRequestPerObjects` | a different value per object: `Fields`, then `ObjectValues` carrying `object` and `values`, in the same order as the fields | a SET expression that differs per row |
 
 A per-row SQL update converts to `massRequestPerObjects`, not to a loop of single updates. The
-identifier field cannot be written by any mass update form.
+identifier field cannot be written by any mass update form. The documentation gives no per-call
+object limit, so suggest batches of about 1,000, say it is a starting point rather than a
+documented number, and tell the reader to adjust it based on response times and 429s.
 
 **Object Manager query conditions** are strings in the `condition` field:
 
@@ -313,6 +330,10 @@ conditions cannot be combined with other conditions in a compound query; Data Gr
 
 ### 6. Rules that override a plausible-looking mapping
 
+- **Long text may live in Data Grid.** Fields such as Extracted Text can be stored in Data Grid
+  rather than SQL. A legacy script that read the SQL column directly silently missed Data Grid
+  text, so its results were already wrong for those workspaces. APIs read either store. If the
+  script reads long text, say this in the IMPORTANT NOTE.
 - **Audit records are immutable.** Records in Data Grid cannot be edited or deleted by any
   endpoint. A script that wrote or updated audit rows converts to: query and export the records,
   then stamp the source documents with metadata fields via Object Manager. The Audit domain's
@@ -336,9 +357,9 @@ conditions cannot be combined with other conditions in a compound query; Data Gr
 Open with this banner, before anything else:
 
 ```
-================================================================================
+==============================================================================
  VERIFICATION REQUIRED: READ BEFORE USING THIS FILE
-================================================================================
+==============================================================================
 
 This workflow was generated by an AI assistant from Relativity's published
 documentation. It has NOT been executed against any Relativity instance.
@@ -366,9 +387,9 @@ own Relativity administrator. Do not assume the reader is an admin.
 Then one block per call, in execution order:
 
 ```
-================================================================================
+==============================================================================
  STEP N: [Purpose]
-================================================================================
+==============================================================================
 
 PURPOSE: [What this replaces in the legacy SQL; one sentence]
 
@@ -399,6 +420,17 @@ VERIFY BEFORE USE: [ ] Run this call against a non-production instance and confi
   exists at all.]
 ```
 
+**Steps with no API call.** When part of the legacy SQL is a computation no API performs (a
+`DATALENGTH`, a string transform, a join of two result sets), give it its own step in call order,
+titled `STEP N: [Purpose] (client side, no API call)`. Replace URL, METHOD, AUTH, HEADERS and
+REQUEST BODY with a `LOGIC:` section: the exact calculation, its inputs (which earlier step's
+response fields), its output (which later step consumes it), and how nulls and empty values are
+handled to match the SQL. Keep the other sections, and name in VERIFY how to check the result
+against the legacy behavior.
+
+**The token call is not JSON.** If the authentication call appears as a step, its header is
+`Content-Type: application/x-www-form-urlencoded`, not `application/json`.
+
 The `VERIFY BEFORE USE` line is not boilerplate. Name the weak point in that specific call. If you
 are confident in every part of it, say what the confidence rests on, for example "path and body taken from the
 OpenAPI spec; the Saved Search condition syntax is inferred".
@@ -417,7 +449,8 @@ Close with, in this order:
 
 Default to printing the whole workflow in the chat inside a single fenced code block, so the user
 can copy it into a `.txt` file. If you can write or attach files, also offer it as
-`{script-name}_API_Workflow.txt`. Do not make the user ask twice for the text.
+`{script-name}_API_Workflow.txt`, with spaces and any character that is not a letter, digit, `-` or
+`_` in the name replaced by `_`. Do not make the user ask twice for the text.
 
 Formatting of the workflow itself: plain text, no markdown. Section headers underlined with `=` 78
 characters wide, subsections with `-`. JSON pretty-printed at 4-space indent. Placeholders in
