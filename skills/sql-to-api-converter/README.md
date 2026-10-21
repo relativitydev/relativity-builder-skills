@@ -1,4 +1,4 @@
-# sql-to-r1-api
+# sql-to-api-converter
 
 Converts a legacy Relativity SQL script into a Relativity aiR REST API workflow.
 
@@ -8,7 +8,7 @@ the plugin, Claude picks it up when you paste a legacy SQL script and ask for th
 invoke it directly:
 
 ```
-/relativity-builder-skills:sql-to-r1-api
+/relativity-builder-skills:sql-to-api-converter
 ```
 
 See the [repository README](../../README.md) for plugin installation.
