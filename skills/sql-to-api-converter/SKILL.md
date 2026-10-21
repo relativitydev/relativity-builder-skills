@@ -1,5 +1,5 @@
 ---
-name: sql-to-r1-api
+name: sql-to-api-converter
 description: Convert a legacy Relativity SQL script to a Relativity aiR REST API workflow. Produces a Postman-consumable API call sequence with documented gaps. Accepts bare SQL or a Relativity Script (XML). Use when someone has a SQL script that used to run against a Relativity database and needs the modern API equivalent, asks how to replace direct database access, or asks whether a table or column they read in SQL has an API.
 argument-hint: "[path to a .sql or Relativity Script .xml file, or paste the script directly]"
 ---
