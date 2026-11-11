@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- Implementation assembly. Upload it to Relativity; clients never reference it. -->
+    <TargetFramework>net462</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <RootNamespace>MyCompany.MyApp.Services</RootNamespace>
+    <AssemblyName>MyCompany.MyApp.Services</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Relativity.API" Version="20.0.0" ExcludeAssets="runtime" />
+    <PackageReference Include="Relativity.Kepler" Version="2.23.1" ExcludeAssets="runtime" />
+    <PackageReference Include="Relativity.Services.Interfaces.SDK" Version="13.6.2" ExcludeAssets="runtime" />
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Interfaces\MyCompany.MyApp.Interfaces.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- Relativity loads agents into a .NET Framework host and documents 4.6.2 for
+         extensibility points. Do not retarget to .NET 6/8. -->
+    <TargetFramework>net462</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <RootNamespace>MyCompany.MyApp.Agents</RootNamespace>
+    <AssemblyName>MyCompany.MyApp.Agents</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- All packages come from nuget.org. Relativity supplies these DLLs at runtime,
+         so do not upload any Relativity.* or kCura.* DLL to Relativity. -->
+    <PackageReference Include="Relativity.Agent" Version="17.0.4" ExcludeAssets="runtime" />
+    <PackageReference Include="Relativity.API" Version="20.0.0" ExcludeAssets="runtime" />
+    <PackageReference Include="Relativity.Services.Interfaces.SDK" Version="13.6.2" ExcludeAssets="runtime" />
+    <PackageReference Include="Relativity.Kepler" Version="2.23.1" ExcludeAssets="runtime" />
+    <!-- Lets the project build without the .NET Framework targeting pack installed. -->
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
+  </ItemGroup>
+
+</Project>

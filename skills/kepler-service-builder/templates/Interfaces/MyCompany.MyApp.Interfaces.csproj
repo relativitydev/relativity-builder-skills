@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- Contracts assembly: interfaces, request/response models, exceptions.
+         Upload it to Relativity, and reference it from any .NET client that calls the service.
+         Relativity documents .NET Framework 4.6.2 for extensibility points. -->
+    <TargetFramework>net462</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <RootNamespace>MyCompany.MyApp.Interfaces</RootNamespace>
+    <AssemblyName>MyCompany.MyApp.Interfaces</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- From nuget.org. Relativity supplies Relativity.* and kCura.* DLLs at runtime; never upload them. -->
+    <PackageReference Include="Relativity.Kepler" Version="2.23.1" ExcludeAssets="runtime" />
+    <!-- Lets the project build without the .NET Framework targeting pack installed. -->
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
+  </ItemGroup>
+
+</Project>

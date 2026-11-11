@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- Console client that calls the deployed service through the Kepler .NET proxy.
+         It references the Interfaces project directly, so it always matches the contract. -->
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net462</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <RootNamespace>MyCompany.MyApp.TestClient</RootNamespace>
+    <AssemblyName>MyCompany.MyApp.TestClient</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Net.Http" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Relativity.Kepler.Client.SDK" Version="2.23.1" />
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Interfaces\MyCompany.MyApp.Interfaces.csproj" />
+  </ItemGroup>
+
+</Project>
