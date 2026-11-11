@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- Kepler contracts for the agent's Workload Discovery endpoint. If your application already
+         has a Kepler Interfaces project, add these files to it instead of creating a second one. -->
+    <TargetFramework>net462</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <RootNamespace>MyCompany.MyApp.Interfaces</RootNamespace>
+    <AssemblyName>MyCompany.MyApp.Interfaces</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Relativity.Kepler" Version="2.23.1" ExcludeAssets="runtime" />
+    <PackageReference Include="Relativity.Platform.Agent.WorkloadDiscovery.SDK" Version="0.4.1" />
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
+  </ItemGroup>
+
+</Project>

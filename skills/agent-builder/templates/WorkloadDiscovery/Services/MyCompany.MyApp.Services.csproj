@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net462</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <RootNamespace>MyCompany.MyApp.Services</RootNamespace>
+    <AssemblyName>MyCompany.MyApp.Services</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Relativity.API" Version="20.0.0" ExcludeAssets="runtime" />
+    <PackageReference Include="Relativity.Kepler" Version="2.23.1" ExcludeAssets="runtime" />
+    <PackageReference Include="Relativity.Platform.Agent.WorkloadDiscovery.SDK" Version="0.4.1" />
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Interfaces\MyCompany.MyApp.Interfaces.csproj" />
+  </ItemGroup>
+
+</Project>

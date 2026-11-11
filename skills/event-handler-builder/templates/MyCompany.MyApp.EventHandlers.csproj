@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- Relativity loads event handlers into a .NET Framework host and documents 4.6.2 for
+         extensibility points. Do not retarget to .NET 6/8. -->
+    <TargetFramework>net462</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <RootNamespace>MyCompany.MyApp.EventHandlers</RootNamespace>
+    <AssemblyName>MyCompany.MyApp.EventHandlers</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- From nuget.org. Relativity supplies Relativity.* and kCura.* DLLs at runtime; never upload them. -->
+    <PackageReference Include="Relativity.EventHandler" Version="17.0.2" ExcludeAssets="runtime" />
+    <PackageReference Include="Relativity.API" Version="20.0.0" ExcludeAssets="runtime" />
+    <PackageReference Include="Relativity.Services.Interfaces.SDK" Version="13.6.2" ExcludeAssets="runtime" />
+    <PackageReference Include="Relativity.Kepler" Version="2.23.1" ExcludeAssets="runtime" />
+    <!-- Lets the project build without the .NET Framework targeting pack installed. -->
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Relativity Forms script files are uploaded as separate resource files, not compiled in. -->
+    <None Include="*.js" />
+  </ItemGroup>
+
+</Project>

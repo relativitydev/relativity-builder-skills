@@ -1,0 +1,30 @@
+name: Test skill templates
+
+on:
+  pull_request:
+    paths:
+      - 'skills/**'
+      - 'tests/**'
+      - '.github/workflows/test-templates.yml'
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  templates:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Build and check templates (nuget.org only)
+        shell: pwsh
+        run: ./tests/Test-Templates.ps1
