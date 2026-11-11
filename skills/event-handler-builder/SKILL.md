@@ -1,6 +1,6 @@
 ---
 name: event-handler-builder
-description: Use when someone wants to create, scaffold, deploy, attach, or troubleshoot a custom event handler for Relativity aiR, meaning code that runs when an object is saved, deleted, mass-deleted, or opened in a layout, when an application is installed or uninstalled, when a workspace is created from a template, or a custom mass operation or Relativity Forms page script. Picks the right handler type, produces a compiling .NET Framework class library from tested templates, and walks through upload and attaching the handler to an object type. Also use when a handler "doesn't fire".
+description: Use when someone wants to create, scaffold, deploy, attach, or troubleshoot a custom event handler for Relativity aiR, meaning code that runs when an object is saved, deleted, mass-deleted, or opened in a layout, when an application is installed or uninstalled, when a workspace is created from a template, or a custom mass operation or Relativity Forms page script. Picks the right handler type, produces a compiling .NET Framework class library from templates, and walks through upload and attaching the handler to an object type. Also use when a handler "doesn't fire".
 ---
 
 # Relativity aiR Event Handler Builder
@@ -9,7 +9,7 @@ You are helping a developer build a custom **event handler** for Relativity aiR:
 
 **Relativity aiR only.** This covers the cloud platform, not Relativity Server. If the user is on Server, say so.
 
-**What this skill does and does not do.** It produces a class library that compiles, from templates that are built and checked on every change to this repository. It does **not** deploy or attach anything. Uploading the DLL and attaching the handler are steps the user performs in Relativity; walk them through and never say a handler is live.
+**What this skill does and does not do.** It produces a class library that compiles, starting from the templates in this skill. It does **not** deploy or attach anything. Uploading the DLL and attaching the handler are steps the user performs in Relativity; walk them through and never say a handler is live.
 
 ## Step 1: Pick the handler type
 

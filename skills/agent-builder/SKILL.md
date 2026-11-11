@@ -1,6 +1,6 @@
 ---
 name: agent-builder
-description: Use when someone wants to create, scaffold, build, deploy, scale, or troubleshoot a custom agent (background process) for Relativity aiR, including a scheduled or recurring job, a queue worker, a manager/worker pattern, or a Workload Discovery endpoint that scales agents dynamically. Produces a compiling .NET Framework class library from tested templates and walks through the resource-file deployment. Not for code that must react instantly to a user action (use an event handler) or answer a request immediately (use a Kepler service).
+description: Use when someone wants to create, scaffold, build, deploy, scale, or troubleshoot a custom agent (background process) for Relativity aiR, including a scheduled or recurring job, a queue worker, a manager/worker pattern, or a Workload Discovery endpoint that scales agents dynamically. Produces a compiling .NET Framework class library from templates and walks through the resource-file deployment. Not for code that must react instantly to a user action (use an event handler) or answer a request immediately (use a Kepler service).
 ---
 
 # Relativity aiR Agent Builder
@@ -9,7 +9,7 @@ You are helping a developer build a custom **agent** for Relativity aiR: a class
 
 **Relativity aiR only.** This covers the cloud platform, not Relativity Server. If the user is on Server, say so; deployment and hosting differ.
 
-**What this skill does and does not do.** It produces a class library that compiles, from templates that are built and checked on every change to this repository. It does **not** deploy anything. Uploading the DLL and checking the agent runs are steps the user performs in Relativity; walk them through those steps and never say the agent has been deployed.
+**What this skill does and does not do.** It produces a class library that compiles, starting from the templates in this skill. It does **not** deploy anything. Uploading the DLL and checking the agent runs are steps the user performs in Relativity; walk them through those steps and never say the agent has been deployed.
 
 ## Step 1: Confirm an agent is the right tool
 
@@ -43,7 +43,7 @@ Keep these exactly as the template has them. Each one fixes a failure people hit
 - **`<TargetFramework>net462</TargetFramework>`.** Relativity's documentation specifies .NET Framework 4.6.2 for agents, event handlers, and Kepler services. Do not move to .NET 6/8; the host is .NET Framework.
 - **Packages from nuget.org:** `Relativity.Agent`, `Relativity.API`, and, for calling Relativity APIs, `Relativity.Services.Interfaces.SDK` (Object Manager is `Relativity.Services.Objects.IObjectManager`, models in `Relativity.Services.Objects.DataContracts`). Its DLLs (`Relativity.Services.Interfaces.dll`, `Relativity.Services.DataContracts.dll`) are on Relativity's list of assemblies it provides at runtime, so there is nothing extra to upload. Do not use the newer `Relativity.ObjectManager.SDK` (namespace `Relativity.ObjectManager.V1`) in server-side code: its DLLs are not on that list. Never use RSAPI (`kCura.Relativity.Client`).
 - **`ExcludeAssets="runtime"` on every Relativity package.** Relativity supplies those DLLs at runtime, and Relativity's documentation says not to ship your own copies. Excluding them keeps them out of `bin`, so everything left in `bin/Release/net462` is exactly what to upload.
-- **`Microsoft.NETFramework.ReferenceAssemblies`** lets the project build on any machine with the .NET SDK, including macOS, Linux, and CI, without a .NET Framework targeting pack.
+- **`Microsoft.NETFramework.ReferenceAssemblies`** lets the project build on any machine with the .NET SDK, including macOS and Linux, without a .NET Framework targeting pack.
 
 ## Step 3: Write `Execute()` the way Relativity runs it
 

@@ -1,6 +1,6 @@
 ---
 name: kepler-service-builder
-description: Use when someone wants to create, scaffold, deploy, call, or troubleshoot a custom Kepler service in Relativity aiR, meaning a custom REST endpoint or .NET API hosted inside Relativity, a custom Kepler module, a backend for a custom page, or an agent's Workload Discovery endpoint. Produces compiling Interfaces and Services projects plus a console test client from tested templates, and covers routes, request bodies, permissions, exceptions, deployment, and "endpoint could not be found" errors.
+description: Use when someone wants to create, scaffold, deploy, call, or troubleshoot a custom Kepler service in Relativity aiR, meaning a custom REST endpoint or .NET API hosted inside Relativity, a custom Kepler module, a backend for a custom page, or an agent's Workload Discovery endpoint. Produces compiling Interfaces and Services projects plus a console test client from templates, and covers routes, request bodies, permissions, exceptions, deployment, and "endpoint could not be found" errors.
 ---
 
 # Relativity aiR Kepler Service Builder
@@ -9,7 +9,7 @@ You are helping a developer build a custom **Kepler service**: their own REST an
 
 **Relativity aiR only.** This covers the cloud platform, not Relativity Server. If the user is on Server, say so.
 
-**What this skill does and does not do.** It produces two class libraries and a test client that compile, from templates that are built and checked on every change to this repository. It does **not** deploy anything. Uploading the DLLs and calling the live service are steps the user performs; walk them through and never say the service is live.
+**What this skill does and does not do.** It produces two class libraries and a test client that compile, starting from the templates in this skill. It does **not** deploy anything. Uploading the DLLs and calling the live service are steps the user performs; walk them through and never say the service is live.
 
 ## Step 1: Confirm Kepler is the right tool
 

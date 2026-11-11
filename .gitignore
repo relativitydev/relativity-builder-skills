@@ -1,6 +1,4 @@
 bin/
 obj/
-.packages/
 *.user
 .vs/
-tests/.build/
