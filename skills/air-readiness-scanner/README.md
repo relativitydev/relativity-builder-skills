@@ -54,12 +54,3 @@ before a big migration review.
 
 Found a false positive or a miss? Open an issue with the pattern or a minimal example (not your
 code).
-
-## Tests
-
-```
-python tests/run_tests.py
-```
-
-Scans a synthetic Server app (as a folder and as a `.rap`) and an aiR-ready app, and checks the
-expected entries come back and the clean app produces nothing.
