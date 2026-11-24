@@ -157,7 +157,7 @@ Name the skill in the report so the user can run it next:
 
 | Finding | Hand off to |
 |---|---|
-| SQL against Relativity databases (DATA-*, SCR-001, AUTH-002 SQL, ADMIN-001 SQL) | `sql-to-api-converter` |
+| SQL against Relativity databases (DATA-*, SCR-001, AUTH-002 SQL) | `sql-to-api-converter` |
 | Agents that need restructuring or Workload Discovery (AGENT-001) | `agent-builder` |
 | Classic event handlers and Forms scripts (EH-001) | `event-handler-builder` |
 | Custom pages that should become HTML/JS pages (PAGE-001, PAGE-002) | `javascript-custom-page-builder` |

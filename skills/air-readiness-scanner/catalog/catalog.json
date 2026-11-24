@@ -1194,34 +1194,6 @@
       ]
     },
     {
-      "id": "ADMIN-001",
-      "title": "Instance settings changed by apps",
-      "category": "admin-config",
-      "server_versions": "all",
-      "status": "changed",
-      "status_label": "Works differently in aiR",
-      "replacement": "Create app-section settings from a run-once post-install event handler; ask Support for Relativity-owned settings",
-      "customer_wording": "In aiR, changes to Relativity's own instance settings go through Product Support, and the Instance Settings tab is secured by default. Apps can still create settings in their own section, and the documented pattern is to do that from a run-once post-install event handler using the Instance Setting Manager. Code that edits Relativity-owned settings or writes the InstanceSetting table directly needs to change.",
-      "docs": [
-        {
-          "url": "https://help.relativity.com/RelativityaiR/Content/Getting_Started/Server_to_RelativityOne_for_Administrators.md",
-          "title": "Server to RelativityOne for Administrators",
-          "edition": "Relativity aiR"
-        },
-        {
-          "url": "https://platform.relativity.com/RelativityaiR/Content/Logging/External_Logging.htm",
-          "title": "External Logging",
-          "edition": "Relativity aiR"
-        }
-      ],
-      "detection": [
-        {
-          "kind": "sql",
-          "pattern": "\\bEDDSDBO\\.\\[?InstanceSetting\\]?\\b"
-        }
-      ]
-    },
-    {
       "id": "API-014",
       "title": "Invariant API",
       "category": "apis-sdk",

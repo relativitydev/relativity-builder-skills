@@ -2,7 +2,7 @@
 
 Generated 2026-11-24 from Relativity's public documentation. Used by the `air-readiness-scanner` skill as its rule set. Do not edit by hand; changes come from the maintainers' export.
 
-40 entries with code signatures, 1 planning items with nothing to scan for.
+39 entries with code signatures, 1 planning items with nothing to scan for.
 
 | ID | Title | Status | Use instead |
 | --- | --- | --- | --- |
@@ -35,7 +35,6 @@ Generated 2026-11-24 from Relativity's public documentation. Used by the `air-re
 | SCR-001 | Relativity Scripts (custom SQL scripts) | Removed in aiR | APIs or native features (see sql-to-api-converter skill); Automated Workflows for some |
 | AGENT-001 | Agents on aiR's compute platform | Works differently in aiR | Retry plus shutdown pattern from the resiliency guidelines; Relativity.Platform.Agent.WorkloadDiscovery.SDK for scaling |
 | INFRA-001 | Managing agents, servers, and resource pools from code | Restricted in aiR | none (Relativity manages agents) |
-| ADMIN-001 | Instance settings changed by apps | Works differently in aiR | Create app-section settings from a run-once post-install event handler; ask Support for Relativity-owned settings |
 | API-014 | Invariant API | Removed in aiR | Processing API |
 | API-016 | Object Query Manager and View Fields Manager APIs | Replaced in aiR | Object Manager API (query) |
 | API-017 | Legacy unversioned Imaging and Tab Manager methods | Replaced in aiR | Versioned Imaging API and Tab Manager API |
@@ -387,18 +386,6 @@ Agents, servers, and resource pools are managed by Relativity in aiR. The Agent 
 **Documentation:**
 - [Server to RelativityOne for Administrators](https://help.relativity.com/RelativityaiR/Content/Getting_Started/Server_to_RelativityOne_for_Administrators.md) (Relativity aiR)
 - [Agent Manager](https://platform.relativity.com/Server2026/Content/BD_Infrastructure/Agent_Manager.htm) (Server 2026)
-
-### ADMIN-001: Instance settings changed by apps
-
-**Works differently in aiR.** Server versions: all.
-
-In aiR, changes to Relativity's own instance settings go through Product Support, and the Instance Settings tab is secured by default. Apps can still create settings in their own section, and the documented pattern is to do that from a run-once post-install event handler using the Instance Setting Manager. Code that edits Relativity-owned settings or writes the InstanceSetting table directly needs to change.
-
-**Use instead:** Create app-section settings from a run-once post-install event handler; ask Support for Relativity-owned settings
-
-**Documentation:**
-- [Server to RelativityOne for Administrators](https://help.relativity.com/RelativityaiR/Content/Getting_Started/Server_to_RelativityOne_for_Administrators.md) (Relativity aiR)
-- [External Logging](https://platform.relativity.com/RelativityaiR/Content/Logging/External_Logging.htm) (Relativity aiR)
 
 ### API-014: Invariant API
 
