@@ -26,6 +26,8 @@ report worth reading.
   `help.relativity.com` that you actually opened. Don't guess at dates, roadmaps, or future
   removals, and don't promise anything on Relativity's behalf. If you're not sure something applies,
   say so and point to the doc.
+- **Get the user's OK before scanning.** Step 1 ends with a disclaimer you show word for word
+  and an explicit yes you wait for. Nothing runs before that.
 - **The report is a starting point, not a sign-off.** Say so in the report. The scan can miss things
   (code built at run time, reflection, configuration stored in Relativity rather than in the repo)
   and the suggestions have not been tested against a live aiR instance.
@@ -47,6 +49,34 @@ ships (bundled DLLs, Relativity Scripts, custom page files) and the source gives
 
 Also ask where to save the report. Default to `air-readiness-report.md` in the current working
 directory.
+
+Then, before you scan anything, put this to the user verbatim and wait for an answer:
+
+> **Before we proceed, please review and confirm.**
+>
+> This review is produced by an AI assistant. It compares your code against a catalog of
+> differences between Relativity Server and Relativity aiR that Relativity has documented
+> publicly, then reads the matching code to judge what applies. It may therefore be incomplete
+> or inaccurate: it can miss code that will behave differently in Relativity aiR, it can flag
+> code that is actually fine, and the replacements it suggests can be stated confidently and
+> still be wrong. It only sees the code you give it, not settings or objects in your Relativity
+> instance, and nothing it suggests will have been run against a live Relativity aiR
+> environment. It is not a certified, supported or warranted assessment of your application.
+>
+> What you receive is a set of **recommendations**: a starting checklist for your own
+> development and testing, not a sign-off that your application is ready. Each change must be
+> validated in a non-production environment before it is relied upon, shared onward, or
+> promoted to production. Responsibility for validating, testing, securing and operating your
+> application in Relativity aiR remains with you.
+>
+> Your code is read in place and is not changed, built, run, or sent anywhere. A GitHub link is
+> cloned to a temporary folder on this machine and deleted afterward.
+>
+> Do you accept that and want me to proceed?
+
+If they decline, or answer with a condition you cannot meet, stop and say what you cannot promise.
+Do not soften the warning to get a yes, and do not skip it because the app looks small or because
+they have used this skill before. A fresh run is a fresh review.
 
 ## Step 2: Run the scanner
 
