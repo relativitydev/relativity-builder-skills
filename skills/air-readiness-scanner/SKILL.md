@@ -176,16 +176,21 @@ For each confirmed finding:
    Use pages under `platform.relativity.com/RelativityaiR/` or `help.relativity.com/RelativityaiR/`.
 4. Only include a link you opened in this session and that loaded. If a catalog link is broken,
    say so in the report instead of dropping the finding.
-   Dated changes (deprecations, removals, breaking changes) come from the Developer Changelog
-   section of the release notes page,
-   `https://help.relativity.com/RelativityaiR/Content/What_s_New/Release_notes.htm`. Its text
-   version only lists the last 12 months, so to check an older row, read the public feed instead
-   (rows are under `developer-release-notes`; the file starts with a byte order mark, so decode it
-   as `utf-8-sig`) and keep citing the release notes page as the link:
+   Some pages, including the aiR release notes page
+   (`https://platform.relativity.com/RelativityaiR/Content/What_s_new/Release_notes.htm`), return
+   404 to scripts that don't identify as a browser. Before you call any link broken, retry it with
+   a browser user agent:
+   ```bash
+   curl -sSL -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36" -o "<temp>/page.htm" "<url>"
+   ```
+   Dated changes (deprecations, removals, breaking changes) come from the Developer Changelog tab
+   of that release notes page. The tab's table is filled in by the browser, so a fetched copy shows
+   it empty. To check a dated claim, read the same rows from the public feed (under
+   `developer-release-notes`; the file starts with a byte order mark, so decode it as
+   `utf-8-sig`), and keep citing the release notes page as the link:
    ```bash
    curl -sSL -o "<temp>/release-notes.json" https://help.relativity.com/RelativityaiRReleaseNotes.json
    ```
-   If the release notes page itself won't load, cite the feed URL instead and say so.
 5. A short code sketch of the replacement is welcome when it's straightforward (swapping a package,
    reading a value from `window.relativity`, adding a header). Label it as a sketch to test, not a
    tested fix.
