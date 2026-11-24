@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Contoso.Cleanup.Agents</RootNamespace>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Relativity.Server.Agent.SDK" Version="2026.0.0" />
+    <PackageReference Include="Relativity.Server.API.SDK" Version="2026.0.0" />
+    <PackageReference Include="Relativity.ObjectManager" Version="12.1.171.20" />
+    <PackageReference Include="Relativity.Rsapi" Version="12.1.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="NightlyCleanupAgent.cs" />
+  </ItemGroup>
+</Project>

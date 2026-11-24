@@ -1,0 +1,12 @@
+<script>
+  <name>Reset Review Flags</name>
+  <description>Clears the Reviewed flag for a saved search.</description>
+  <category>Contoso</category>
+  <input>
+    <sql id="SearchID" name="Saved search">SELECT ArtifactID AS ID, TextIdentifier AS Name FROM EDDSDBO.Search</sql>
+  </input>
+  <action returns="table" timeout="1200"><![CDATA[
+    UPDATE EDDSDBO.Document SET Reviewed = 0
+    WHERE ArtifactID IN (SELECT ArtifactID FROM EDDSDBO.SavedSearchResults WHERE SearchID = #SearchID#)
+  ]]></action>
+</script>

@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net48</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Relativity.ObjectManager.SDK" Version="2025.4.1" />
+    <PackageReference Include="Relativity.Kepler.Client.SDK" Version="2025.4.0" />
+  </ItemGroup>
+</Project>
