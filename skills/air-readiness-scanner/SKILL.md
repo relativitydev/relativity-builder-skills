@@ -112,8 +112,9 @@ Rules of thumb:
   section. Test projects matter for TEST-001 only.
 - **Compiled hits** (`source: compiled`): the DLL references the type or namespace. If the user gave
   you source too, find the source line and report that instead. If not, report the DLL and ask for
-  the project that builds it. DLLs from Relativity or well-known libraries are matched by file name
-  only, never read.
+  the project that builds it. Well-known third-party libraries, and assemblies Relativity publishes
+  (a `Relativity.*` or `kCura.*` name plus Relativity's company or copyright stamp), are matched by
+  file name only, never read. The app's own DLLs are read even when they're named `Relativity.*`.
 - **File access (FILE-001)**: local temp files and paths built from `Path.GetTempPath()` are fine.
   UNC paths, fileshare roots, and `File.Location` values from Relativity are the problem.
 - **Hosted libraries (PAGE-002)**: a script tag pointing at Relativity's own copy (`/Relativity/...`,

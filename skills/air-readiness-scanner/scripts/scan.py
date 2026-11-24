@@ -55,7 +55,7 @@ MAX_PER_FILE = 20  # findings per detection item per file
 # Assemblies from Relativity, Microsoft, and common libraries: match on file name only,
 # don't read their strings (they mention Relativity types by design).
 VENDOR_DLL = re.compile(
-    r"(?i)^(relativity|kcura|system|microsoft|newtonsoft|polly|castle|grpc|google|autofac|"
+    r"(?i)^(system|microsoft|newtonsoft|polly|castle|grpc|google|autofac|"
     r"automapper|dapper|structuremap|nlog|log4net|serilog|opentelemetry|azure|aws|bouncycastle|"
     r"nunit|xunit|moq|fluentassertions|entityframework|owin|antlr|webgrease|oracle|npgsql|"
     r"mono|netstandard|mscorlib|ionic|icsharpcode|sharpziplib|htmlagilitypack|restsharp|"
@@ -264,11 +264,14 @@ class Scanner:
         if VENDOR_DLL.match(name):
             self.stats["assemblies_name_only"] += 1
             return
-        self.stats["assemblies_read"] += 1
         ascii_strings = re.findall(rb"[\x20-\x7e]{4,}", data)
         utf16_strings = re.findall(rb"(?:[\x20-\x7e]\x00){4,}", data)
         lines = [s.decode("ascii") for s in ascii_strings]
         lines += [s.decode("utf-16-le", "replace") for s in utf16_strings]
+        if is_relativity_library(name, lines):
+            self.stats["assemblies_name_only"] += 1
+            return
+        self.stats["assemblies_read"] += 1
         self.scan_text("\n".join(lines), rel, ".dll", source="compiled")
 
     def scan_path_rules(self, rel):
@@ -393,6 +396,23 @@ class Scanner:
         out.sort(key=lambda f: (SEVERITY_ORDER.index(f["severity"]), f["entry_id"], f["file"],
                                 f["line"] or 0))
         return out
+
+
+RELATIVITY_DLL_NAME = re.compile(r"(?i)^(kcura|relativity)\.")
+RELATIVITY_PUBLISHER = re.compile(r"(?i)\b(relativity ODA LLC|kcura (LLC|corporation))\b")
+
+
+def is_relativity_library(name, strings):
+    """True for assemblies Relativity publishes (SDK, platform, Relativity apps).
+
+    Customers often name their own DLLs Relativity.* or kCura.*, and apps generated from old
+    Relativity templates keep a kCura copyright, so neither the name nor the publisher alone is
+    enough. A Relativity library has an SDK-style dotted name AND Relativity's company or
+    copyright attribute. Everything else is read as app code.
+    """
+    if not RELATIVITY_DLL_NAME.match(name):
+        return False
+    return any(RELATIVITY_PUBLISHER.search(s) for s in strings)
 
 
 def _force_remove(func, path, _exc):
