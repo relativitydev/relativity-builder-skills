@@ -82,7 +82,7 @@
       "customer_wording": "Direct SQL access to the Processing datastores (the INV databases) was removed from aiR on March 18, 2026, per the Developer Changelog. If your code or scripts query those databases, that workflow needs to move to the Processing API.",
       "docs": [
         {
-          "url": "https://platform.relativity.com/RelativityaiR/Content/What_s_new/Release_notes.htm",
+          "url": "https://help.relativity.com/RelativityaiR/Content/What_s_New/Release_notes.htm",
           "title": "Release notes",
           "edition": "Relativity aiR"
         }
@@ -109,7 +109,7 @@
       "customer_wording": "Per the Developer Changelog, direct SQL access to the EDDSArchiving database is removed in aiR as of October 1, 2026. Integrations that read ARM job state from that database need to move to the ARM REST API V3.",
       "docs": [
         {
-          "url": "https://platform.relativity.com/RelativityaiR/Content/What_s_new/Release_notes.htm",
+          "url": "https://help.relativity.com/RelativityaiR/Content/What_s_New/Release_notes.htm",
           "title": "Release notes",
           "edition": "Relativity aiR"
         }
@@ -132,7 +132,7 @@
       "customer_wording": "The Developer Changelog (May 1, 2026) says custom SQL triggers in Relativity databases should no longer be used in aiR. If your app installs triggers to react to data changes, move that logic into event handlers, or poll for changes through Object Manager.",
       "docs": [
         {
-          "url": "https://platform.relativity.com/RelativityaiR/Content/What_s_new/Release_notes.htm",
+          "url": "https://help.relativity.com/RelativityaiR/Content/What_s_New/Release_notes.htm",
           "title": "Release notes",
           "edition": "Relativity aiR"
         }
@@ -216,7 +216,7 @@
       "customer_wording": "aiR doesn't give apps open access to the fileshare. Since June 2023 agents no longer connect to every fileshare on startup, and since September 2024 staging boundaries block reading or writing outside the defined staging area, with the FTA, Temp, Export, and dtSearch folders removed. Move file work off UNC paths and onto the Relativity Transfer SDK and the Import and Export Service APIs.",
       "docs": [
         {
-          "url": "https://platform.relativity.com/RelativityaiR/Content/What_s_new/Release_notes.htm",
+          "url": "https://help.relativity.com/RelativityaiR/Content/What_s_New/Release_notes.htm",
           "title": "Release notes",
           "edition": "Relativity aiR"
         }
@@ -324,7 +324,7 @@
       "customer_wording": "RSAPI is gone in aiR. It stopped working on October 23, 2021, and it was also removed from Server 2023. Code that uses kCura.Relativity.Client needs to move to Object Manager and the other Kepler services, and the RSAPI migration matrix maps each feature to its replacement.",
       "docs": [
         {
-          "url": "https://platform.relativity.com/RelativityaiR/Content/What_s_new/Release_notes.htm",
+          "url": "https://help.relativity.com/RelativityaiR/Content/What_s_New/Release_notes.htm",
           "title": "Release notes",
           "edition": "Relativity aiR"
         },
@@ -373,7 +373,7 @@
       "customer_wording": "The unversioned Audit API was deprecated in aiR in June 2023, so code that references Relativity.Audit.Services.Unversioned.Interfaces or calls the non-versioned URL needs to move to the versioned Audit API. The LuceneSearch keyword was also removed from Audit API conditions in 2025, with \"is like\" and \"is not like\" filtering on the Details field in its place, and the Audit Metrics count and size endpoint was retired October 1, 2025.",
       "docs": [
         {
-          "url": "https://platform.relativity.com/RelativityaiR/Content/What_s_new/Release_notes.htm",
+          "url": "https://help.relativity.com/RelativityaiR/Content/What_s_New/Release_notes.htm",
           "title": "Release notes",
           "edition": "Relativity aiR"
         }
@@ -400,7 +400,7 @@
       "customer_wording": "The unversioned Production APIs have been deprecated and unsupported in aiR since July 28, 2023. If your code references Relativity.Productions.Client or calls the non-versioned Production URL, switch to Relativity.Productions.SDK or the versioned REST endpoints.",
       "docs": [
         {
-          "url": "https://platform.relativity.com/RelativityaiR/Content/What_s_new/Release_notes.htm",
+          "url": "https://help.relativity.com/RelativityaiR/Content/What_s_New/Release_notes.htm",
           "title": "Release notes",
           "edition": "Relativity aiR"
         }
@@ -432,7 +432,7 @@
           "edition": "Relativity aiR"
         },
         {
-          "url": "https://platform.relativity.com/RelativityaiR/Content/What_s_new/Release_notes.htm",
+          "url": "https://help.relativity.com/RelativityaiR/Content/What_s_New/Release_notes.htm",
           "title": "Release notes",
           "edition": "Relativity aiR"
         }
@@ -467,7 +467,7 @@
       "customer_wording": "The Analytics Classification API (.NET and REST) was removed from aiR on December 20, 2024, and the changelog doesn't name a direct replacement. Any code that calls it needs to be redesigned before the move.",
       "docs": [
         {
-          "url": "https://platform.relativity.com/RelativityaiR/Content/What_s_new/Release_notes.htm",
+          "url": "https://help.relativity.com/RelativityaiR/Content/What_s_New/Release_notes.htm",
           "title": "Release notes",
           "edition": "Relativity aiR"
         }
@@ -494,7 +494,7 @@
       "customer_wording": "aiR has moved the Processing API to v2. The v1 ProcessingDocumentManager and ProcessingFilterManager were removed January 6, 2026 in favor of v2, which uses a string LogicalID instead of the long FileID, the v0 APIs stopped working July 6, 2026, and the static filter endpoints (CreateExpressionFilterAsync, GetFiltersAsync, and the rest) were removed July 14, 2026. Port these calls to Processing API v2.",
       "docs": [
         {
-          "url": "https://platform.relativity.com/RelativityaiR/Content/What_s_new/Release_notes.htm",
+          "url": "https://help.relativity.com/RelativityaiR/Content/What_s_New/Release_notes.htm",
           "title": "Release notes",
           "edition": "Relativity aiR"
         }
@@ -537,7 +537,7 @@
       "customer_wording": "The Errors tab was removed from aiR in July 2025, and as of January 2026 the Errors API is only a stub, so no error data gets written. Code that writes to the Errors tab won't fail, but nobody will ever see those errors. Send them to your app's own logging, or surface them in your job's status instead.",
       "docs": [
         {
-          "url": "https://platform.relativity.com/RelativityaiR/Content/What_s_new/Release_notes.htm",
+          "url": "https://help.relativity.com/RelativityaiR/Content/What_s_New/Release_notes.htm",
           "title": "Release notes",
           "edition": "Relativity aiR"
         }
@@ -572,7 +572,7 @@
       "customer_wording": "The legacy Relativity.ObjectManager NuGet package is deprecated. Per the Developer Changelog it was marked deprecated June 22, 2026 and is scheduled to be removed from NuGet in October 2026. Switch the reference to Relativity.ObjectManager.SDK.",
       "docs": [
         {
-          "url": "https://platform.relativity.com/RelativityaiR/Content/What_s_new/Release_notes.htm",
+          "url": "https://help.relativity.com/RelativityaiR/Content/What_s_New/Release_notes.htm",
           "title": "Release notes",
           "edition": "Relativity aiR"
         }
@@ -595,7 +595,7 @@
       "customer_wording": "The legacy Document Viewer Kepler API endpoints are deprecated in aiR and replaced with new REST API endpoints, per the June 18, 2026 Developer Changelog entry. Code that calls the old Document Viewer services should move to the new REST endpoints, and the developer group post linked from the changelog has the details.",
       "docs": [
         {
-          "url": "https://platform.relativity.com/RelativityaiR/Content/What_s_new/Release_notes.htm",
+          "url": "https://help.relativity.com/RelativityaiR/Content/What_s_New/Release_notes.htm",
           "title": "Release notes",
           "edition": "Relativity aiR"
         },
@@ -635,7 +635,7 @@
       "customer_wording": "Several Workspace Manager endpoints were deprecated in aiR on August 3, 2026, and the UpdateAsync (PUT) endpoint is deprecated as of December 9, 2026. EnableDataGrid is also deprecated and is always set to true when creating or updating workspaces. The developer group posts linked from the Developer Changelog list the affected endpoints and what replaces them, so check any code that creates or updates workspaces against them.",
       "docs": [
         {
-          "url": "https://platform.relativity.com/RelativityaiR/Content/What_s_new/Release_notes.htm",
+          "url": "https://help.relativity.com/RelativityaiR/Content/What_s_New/Release_notes.htm",
           "title": "Release notes",
           "edition": "Relativity aiR"
         }
@@ -678,7 +678,7 @@
       "customer_wording": "The Batch Sets Manager and Batches Manager .NET APIs and REST endpoints are scheduled to be deprecated in aiR on March 1, 2027, per the Developer Changelog. If your app creates or reads batch sets through these APIs, plan the change now and check the developer group post linked from the changelog for the recommended path.",
       "docs": [
         {
-          "url": "https://platform.relativity.com/RelativityaiR/Content/What_s_new/Release_notes.htm",
+          "url": "https://help.relativity.com/RelativityaiR/Content/What_s_New/Release_notes.htm",
           "title": "Release notes",
           "edition": "Relativity aiR"
         }
@@ -709,7 +709,7 @@
       "customer_wording": "The Keyboard Shortcuts Manager .NET API and REST endpoints are scheduled to be deprecated in aiR on February 15, 2027, per the Developer Changelog. If your app manages keyboard shortcuts through this API, plan the change now and check the developer group post linked from the changelog.",
       "docs": [
         {
-          "url": "https://platform.relativity.com/RelativityaiR/Content/What_s_new/Release_notes.htm",
+          "url": "https://help.relativity.com/RelativityaiR/Content/What_s_New/Release_notes.htm",
           "title": "Release notes",
           "edition": "Relativity aiR"
         }
@@ -736,7 +736,7 @@
       "customer_wording": "In aiR, Cold Storage is driven only by the system Workspace State field. Since July 1, 2025 the customer-defined Status field no longer affects Cold Storage or billing, and since September 20, 2026 moving a workspace to Cold Storage doesn't update Status either. CanManageColdStorageAsync and DeleteWorkspaceFromColdStorageAsync were removed July 1, 2026, so scripts and integrations should read Workspace State and use the current Cold Storage API.",
       "docs": [
         {
-          "url": "https://platform.relativity.com/RelativityaiR/Content/What_s_new/Release_notes.htm",
+          "url": "https://help.relativity.com/RelativityaiR/Content/What_s_New/Release_notes.htm",
           "title": "Release notes",
           "edition": "Relativity aiR"
         }
@@ -763,7 +763,7 @@
       "customer_wording": "The Relativity Testing Framework for aiR was removed on May 31, 2024, including the NuGet package and its docs. It's still available for Server, but tests that target aiR should call the Relativity APIs directly. This only affects test projects, not the app you ship.",
       "docs": [
         {
-          "url": "https://platform.relativity.com/RelativityaiR/Content/What_s_new/Release_notes.htm",
+          "url": "https://help.relativity.com/RelativityaiR/Content/What_s_New/Release_notes.htm",
           "title": "Release notes",
           "edition": "Relativity aiR"
         },
@@ -795,7 +795,7 @@
       "customer_wording": "The legacy Import API (kCura.Relativity.ImportAPI, WinEDDS, DataExchange) doesn't work in aiR. It stopped functioning January 31, 2024, the DataExchange.Client.SDK was deprecated December 2, 2024, and the RDC hasn't worked in aiR since July 1, 2024. Use the Import Service API (REST) or Relativity.Import.SDK for loads, and the Export Service API for exports.",
       "docs": [
         {
-          "url": "https://platform.relativity.com/RelativityaiR/Content/What_s_new/Release_notes.htm",
+          "url": "https://help.relativity.com/RelativityaiR/Content/What_s_New/Release_notes.htm",
           "title": "Release notes",
           "edition": "Relativity aiR"
         },
@@ -880,7 +880,7 @@
       "customer_wording": "The old Transfer API (Relativity.Transfer.Client with the Aspera and fileshare clients) doesn't work in aiR, and versions 7.4.10 and below stopped working January 31, 2024. The aiR Relativity.Transfer.SDK is a different API, versions before 4.2.2 stopped working August 3, 2026, and an update to the latest SDK was required on October 15, 2026. Build against the current Relativity.Transfer.SDK.",
       "docs": [
         {
-          "url": "https://platform.relativity.com/RelativityaiR/Content/What_s_new/Release_notes.htm",
+          "url": "https://help.relativity.com/RelativityaiR/Content/What_s_New/Release_notes.htm",
           "title": "Release notes",
           "edition": "Relativity aiR"
         },
@@ -924,7 +924,7 @@
       "customer_wording": "In aiR, legacy SQL permissions for Staging Reports and Usage Reports were retired on November 10, 2026 as those features moved to the next-gen permission model, and the Permissions API no longer assigns them. Code that sets those permissions should switch to the matching next-gen role keys through the Access Control API.",
       "docs": [
         {
-          "url": "https://platform.relativity.com/RelativityaiR/Content/What_s_new/Release_notes.htm",
+          "url": "https://help.relativity.com/RelativityaiR/Content/What_s_New/Release_notes.htm",
           "title": "Release notes",
           "edition": "Relativity aiR"
         }
@@ -960,7 +960,7 @@
           "edition": "Relativity aiR"
         },
         {
-          "url": "https://platform.relativity.com/RelativityaiR/Content/What_s_new/Release_notes.htm",
+          "url": "https://help.relativity.com/RelativityaiR/Content/What_s_New/Release_notes.htm",
           "title": "Release notes",
           "edition": "Relativity aiR"
         }
@@ -1316,7 +1316,7 @@
       "customer_wording": "Custom Integration Points providers built on the kCura.IntegrationPoints.* namespaces need to move to Relativity.IntegrationPoints.* and the current DLLs. Also, as of August 29, 2025 the legacy load file import and export workflows in Integration Points are no longer supported in aiR, so use the Import and Export APIs for that work.",
       "docs": [
         {
-          "url": "https://platform.relativity.com/RelativityaiR/Content/What_s_new/Release_notes.htm",
+          "url": "https://help.relativity.com/RelativityaiR/Content/What_s_New/Release_notes.htm",
           "title": "Release notes",
           "edition": "Relativity aiR"
         },
@@ -1496,7 +1496,7 @@
       "customer_wording": "Object Manager in aiR limits each application to 1,000 requests per minute per web server and returns 429 Too Many Requests above that, per the Developer Changelog. The StreamLongText endpoint is also rate limited as of September 1, 2026. Pace your calls, retry after a 429, and use the Export Service API for bulk text instead of streaming long text one field at a time.",
       "docs": [
         {
-          "url": "https://platform.relativity.com/RelativityaiR/Content/What_s_new/Release_notes.htm",
+          "url": "https://help.relativity.com/RelativityaiR/Content/What_s_New/Release_notes.htm",
           "title": "Release notes",
           "edition": "Relativity aiR"
         },

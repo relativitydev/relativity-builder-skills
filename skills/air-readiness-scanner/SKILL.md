@@ -24,7 +24,9 @@ report worth reading.
 - **Stay inside the catalog and public docs.** What you say about aiR comes from the catalog entry
   (`customer_wording`, `replacement`, `docs`) and from pages on `platform.relativity.com` or
   `help.relativity.com` that you actually opened. Don't guess at dates, roadmaps, or future
-  removals, and don't promise anything on Relativity's behalf. If you're not sure something applies,
+  removals, and don't promise anything on Relativity's behalf. When a date in the catalog has
+  already passed, say what was announced for that date ("was scheduled to be removed on ...")
+  unless a page you opened says it actually happened. If you're not sure something applies,
   say so and point to the doc.
 - **Get the user's OK before scanning.** Step 1 ends with a disclaimer you show word for word
   and an explicit yes you wait for. Nothing runs before that.
@@ -89,7 +91,8 @@ python "<this skill folder>/scripts/scan.py" "<target>" --out "<temp>/air-scan.j
 ```
 
 The script prints a one-line summary. `air-scan.md` is a raw, unverified listing grouped by catalog
-entry. `air-scan.json` has every hit with these fields:
+entry. `air-scan.json` lists every hit in its `findings` array (they're still unverified hits at
+this point), each with these fields:
 
 | Field | Meaning |
 |---|---|
@@ -121,9 +124,10 @@ method) to decide. Classify each one:
 
 Rules of thumb:
 
-- **One finding per place, not per match.** Several patterns often hit the same line or method.
-  Report the place once, under the most specific entry, and count the rest as merged (not
-  dismissed). Some entries overlap on purpose: API-019 shares `kCura.Relativity.Client` with
+- **One finding per problem, not per match.** Several patterns often hit the same line or method,
+  and one entry often hits several related lines (a package reference in the project file plus the
+  code that uses it). Report that as one finding listing every location, under the most specific
+  entry, and count the extra hits as merged (not dismissed). Some entries overlap on purpose: API-019 shares `kCura.Relativity.Client` with
   API-001 (RSAPI), and API-019 also overlaps API-002 and API-003. Report the overlap under the more
   specific entry. When a file appears in `also_in`, report the first copy and say how many other
   copies exist.
@@ -149,7 +153,8 @@ Rules of thumb:
   UNC paths, fileshare roots, and `File.Location` values from Relativity are the problem.
 - **Hosted libraries (PAGE-002)**: a script tag pointing at Relativity's own copy (`/Relativity/...`,
   or `../../Scripts/...` climbing out of the page folder) is the problem. A copy the app bundles in
-  its own folder is fine.
+  its own folder is fine. If a tag points inside the page folder but the file isn't in what you
+  scanned, list it under "worth a look" and ask the user to confirm the file ships with the page.
 - **Agents (AGENT-001)**: every agent is a review item. Read the `Execute` method and look for the
   patterns the entry's docs warn about: long single runs, no retry on HTTP or file calls, work that
   assumes only one instance runs at a time.
@@ -171,13 +176,16 @@ For each confirmed finding:
    Use pages under `platform.relativity.com/RelativityaiR/` or `help.relativity.com/RelativityaiR/`.
 4. Only include a link you opened in this session and that loaded. If a catalog link is broken,
    say so in the report instead of dropping the finding.
-   The Developer Changelog table on the aiR `Release_notes.htm` page is filled in by the browser, so
-   fetching the page returns an empty table. To check a dated changelog claim, read the same data
-   from the public feed instead (rows are under `developer-release-notes`), and keep citing
-   `Release_notes.htm` as the link:
+   Dated changes (deprecations, removals, breaking changes) come from the Developer Changelog
+   section of the release notes page,
+   `https://help.relativity.com/RelativityaiR/Content/What_s_New/Release_notes.htm`. Its text
+   version only lists the last 12 months, so to check an older row, read the public feed instead
+   (rows are under `developer-release-notes`; the file starts with a byte order mark, so decode it
+   as `utf-8-sig`) and keep citing the release notes page as the link:
    ```bash
    curl -sSL -o "<temp>/release-notes.json" https://help.relativity.com/RelativityaiRReleaseNotes.json
    ```
+   If the release notes page itself won't load, cite the feed URL instead and say so.
 5. A short code sketch of the replacement is welcome when it's straightforward (swapping a package,
    reading a value from `window.relativity`, adding a header). Label it as a sketch to test, not a
    tested fix.
@@ -214,6 +222,8 @@ Scanned <target> (<commit if known>) on <date> against the Server to aiR catalog
 
 <n> pattern matches were reviewed: <f> became the findings below, <r> are listed under "worth a
 look", <g> were merged into a finding for the same place, and <m> were dismissed as false positives.
+<!-- Count hits, one per finding or worth-a-look item, so f + r + g + m = n. -->
+
 
 ## Findings
 

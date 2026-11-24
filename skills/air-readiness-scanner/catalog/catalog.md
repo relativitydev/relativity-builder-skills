@@ -70,7 +70,7 @@ Direct SQL access to the Processing datastores (the INV databases) was removed f
 **Use instead:** Processing API (v2)
 
 **Documentation:**
-- [Release notes](https://platform.relativity.com/RelativityaiR/Content/What_s_new/Release_notes.htm) (Relativity aiR)
+- [Release notes](https://help.relativity.com/RelativityaiR/Content/What_s_New/Release_notes.htm) (Relativity aiR)
 
 ### DATA-003: Direct SQL access to the EDDSArchiving database
 
@@ -81,7 +81,7 @@ Per the Developer Changelog, direct SQL access to the EDDSArchiving database is 
 **Use instead:** ARM REST API V3
 
 **Documentation:**
-- [Release notes](https://platform.relativity.com/RelativityaiR/Content/What_s_new/Release_notes.htm) (Relativity aiR)
+- [Release notes](https://help.relativity.com/RelativityaiR/Content/What_s_New/Release_notes.htm) (Relativity aiR)
 
 ### DATA-004: Custom SQL triggers in Relativity databases
 
@@ -92,7 +92,7 @@ The Developer Changelog (May 1, 2026) says custom SQL triggers in Relativity dat
 **Use instead:** Event handlers, or polling through Object Manager
 
 **Documentation:**
-- [Release notes](https://platform.relativity.com/RelativityaiR/Content/What_s_new/Release_notes.htm) (Relativity aiR)
+- [Release notes](https://help.relativity.com/RelativityaiR/Content/What_s_New/Release_notes.htm) (Relativity aiR)
 
 ### DATA-005: Reading logs from EDDSLogging or local log files
 
@@ -116,7 +116,7 @@ aiR doesn't give apps open access to the fileshare. Since June 2023 agents no lo
 **Use instead:** Relativity Transfer SDK, Import Service API, Export Service API
 
 **Documentation:**
-- [Release notes](https://platform.relativity.com/RelativityaiR/Content/What_s_new/Release_notes.htm) (Relativity aiR)
+- [Release notes](https://help.relativity.com/RelativityaiR/Content/What_s_New/Release_notes.htm) (Relativity aiR)
 
 ### SDK-001: Server SDK packages (Relativity.Server.* from Artifactory)
 
@@ -140,7 +140,7 @@ RSAPI is gone in aiR. It stopped working on October 23, 2021, and it was also re
 **Use instead:** Object Manager API and the per-domain Kepler services (see RSAPI migration matrix)
 
 **Documentation:**
-- [Release notes](https://platform.relativity.com/RelativityaiR/Content/What_s_new/Release_notes.htm) (Relativity aiR)
+- [Release notes](https://help.relativity.com/RelativityaiR/Content/What_s_New/Release_notes.htm) (Relativity aiR)
 - [RSAPI deprecation process](https://platform.relativity.com/Server2026/Content/What_s_new/RSAPI_deprecation_process.htm) (Server 2026)
 - [RSAPI migration strategy](https://platform.relativity.com/Server2026/Content/What_s_new/RSAPI_migration_strategy.htm) (Server 2026)
 
@@ -153,7 +153,7 @@ The unversioned Audit API was deprecated in aiR in June 2023, so code that refer
 **Use instead:** Versioned Audit API (REST and .NET)
 
 **Documentation:**
-- [Release notes](https://platform.relativity.com/RelativityaiR/Content/What_s_new/Release_notes.htm) (Relativity aiR)
+- [Release notes](https://help.relativity.com/RelativityaiR/Content/What_s_New/Release_notes.htm) (Relativity aiR)
 
 ### API-003: Unversioned Production API (Relativity.Productions.Client)
 
@@ -164,7 +164,7 @@ The unversioned Production APIs have been deprecated and unsupported in aiR sinc
 **Use instead:** Relativity.Productions.SDK, or the versioned REST URLs
 
 **Documentation:**
-- [Release notes](https://platform.relativity.com/RelativityaiR/Content/What_s_new/Release_notes.htm) (Relativity aiR)
+- [Release notes](https://help.relativity.com/RelativityaiR/Content/What_s_New/Release_notes.htm) (Relativity aiR)
 
 ### API-004: Classic List Page API (Relativity.ListPage)
 
@@ -176,7 +176,7 @@ The classic list page API (Relativity.ListPage) has been replaced by Relativity.
 
 **Documentation:**
 - [Classic List Page API deprecation](https://platform.relativity.com/RelativityaiR/Content/What_s_new/Classic_List_Page_API_deprecation.htm) (Relativity aiR)
-- [Release notes](https://platform.relativity.com/RelativityaiR/Content/What_s_new/Release_notes.htm) (Relativity aiR)
+- [Release notes](https://help.relativity.com/RelativityaiR/Content/What_s_New/Release_notes.htm) (Relativity aiR)
 
 ### API-005: Analytics Classification API
 
@@ -187,7 +187,7 @@ The Analytics Classification API (.NET and REST) was removed from aiR on Decembe
 **Use instead:** none listed
 
 **Documentation:**
-- [Release notes](https://platform.relativity.com/RelativityaiR/Content/What_s_new/Release_notes.htm) (Relativity aiR)
+- [Release notes](https://help.relativity.com/RelativityaiR/Content/What_s_New/Release_notes.htm) (Relativity aiR)
 
 ### API-006: Processing API v0 and v1 document/filter managers
 
@@ -198,7 +198,7 @@ aiR has moved the Processing API to v2. The v1 ProcessingDocumentManager and Pro
 **Use instead:** Processing API v2
 
 **Documentation:**
-- [Release notes](https://platform.relativity.com/RelativityaiR/Content/What_s_new/Release_notes.htm) (Relativity aiR)
+- [Release notes](https://help.relativity.com/RelativityaiR/Content/What_s_New/Release_notes.htm) (Relativity aiR)
 
 ### API-007: Writing to the Errors tab / Errors API
 
@@ -209,7 +209,7 @@ The Errors tab was removed from aiR in July 2025, and as of January 2026 the Err
 **Use instead:** Job-level error surfacing, IAPILog
 
 **Documentation:**
-- [Release notes](https://platform.relativity.com/RelativityaiR/Content/What_s_new/Release_notes.htm) (Relativity aiR)
+- [Release notes](https://help.relativity.com/RelativityaiR/Content/What_s_New/Release_notes.htm) (Relativity aiR)
 
 ### API-008: Legacy Relativity.ObjectManager NuGet package
 
@@ -220,7 +220,7 @@ The legacy Relativity.ObjectManager NuGet package is deprecated. Per the Develop
 **Use instead:** Relativity.ObjectManager.SDK
 
 **Documentation:**
-- [Release notes](https://platform.relativity.com/RelativityaiR/Content/What_s_new/Release_notes.htm) (Relativity aiR)
+- [Release notes](https://help.relativity.com/RelativityaiR/Content/What_s_New/Release_notes.htm) (Relativity aiR)
 
 ### API-009: Legacy Document Viewer Kepler endpoints
 
@@ -231,7 +231,7 @@ The legacy Document Viewer Kepler API endpoints are deprecated in aiR and replac
 **Use instead:** New Document Viewer REST endpoints
 
 **Documentation:**
-- [Release notes](https://platform.relativity.com/RelativityaiR/Content/What_s_new/Release_notes.htm) (Relativity aiR)
+- [Release notes](https://help.relativity.com/RelativityaiR/Content/What_s_New/Release_notes.htm) (Relativity aiR)
 - [Persistent Highlight Service .NET](https://platform.relativity.com/Server2026/Content/BD_Document_Viewer/Persistent_Highlight_Service__.NET_.htm) (Server 2026)
 
 ### API-010: Workspace Manager deprecated endpoints and fields
@@ -243,7 +243,7 @@ Several Workspace Manager endpoints were deprecated in aiR on August 3, 2026, an
 **Use instead:** See developer group posts linked from the changelog
 
 **Documentation:**
-- [Release notes](https://platform.relativity.com/RelativityaiR/Content/What_s_new/Release_notes.htm) (Relativity aiR)
+- [Release notes](https://help.relativity.com/RelativityaiR/Content/What_s_New/Release_notes.htm) (Relativity aiR)
 
 ### API-011: Batch Sets Manager and Batches Manager APIs
 
@@ -254,7 +254,7 @@ The Batch Sets Manager and Batches Manager .NET APIs and REST endpoints are sche
 **Use instead:** TBD (see developer group post)
 
 **Documentation:**
-- [Release notes](https://platform.relativity.com/RelativityaiR/Content/What_s_new/Release_notes.htm) (Relativity aiR)
+- [Release notes](https://help.relativity.com/RelativityaiR/Content/What_s_New/Release_notes.htm) (Relativity aiR)
 
 ### API-012: Keyboard Shortcuts Manager API
 
@@ -265,7 +265,7 @@ The Keyboard Shortcuts Manager .NET API and REST endpoints are scheduled to be d
 **Use instead:** TBD (see developer group post)
 
 **Documentation:**
-- [Release notes](https://platform.relativity.com/RelativityaiR/Content/What_s_new/Release_notes.htm) (Relativity aiR)
+- [Release notes](https://help.relativity.com/RelativityaiR/Content/What_s_New/Release_notes.htm) (Relativity aiR)
 
 ### API-013: Cold Storage endpoints and the workspace Status field
 
@@ -276,7 +276,7 @@ In aiR, Cold Storage is driven only by the system Workspace State field. Since J
 **Use instead:** Workspace State field, current Cold Storage API
 
 **Documentation:**
-- [Release notes](https://platform.relativity.com/RelativityaiR/Content/What_s_new/Release_notes.htm) (Relativity aiR)
+- [Release notes](https://help.relativity.com/RelativityaiR/Content/What_s_New/Release_notes.htm) (Relativity aiR)
 
 ### TEST-001: Relativity Testing Framework (RTF)
 
@@ -287,7 +287,7 @@ The Relativity Testing Framework for aiR was removed on May 31, 2024, including 
 **Use instead:** Call the Relativity APIs directly from tests
 
 **Documentation:**
-- [Release notes](https://platform.relativity.com/RelativityaiR/Content/What_s_new/Release_notes.htm) (Relativity aiR)
+- [Release notes](https://help.relativity.com/RelativityaiR/Content/What_s_New/Release_notes.htm) (Relativity aiR)
 - [SDK API Comparison](https://platform.relativity.com/Server2026/Content/Relativity_Platform/SDK_API_Comparison.htm) (Server 2026)
 
 ### IMP-001: Legacy Import API (WinEDDS / DataExchange based)
@@ -299,7 +299,7 @@ The legacy Import API (kCura.Relativity.ImportAPI, WinEDDS, DataExchange) doesn'
 **Use instead:** Import Service API (REST) / Relativity.Import.SDK; Export Service API for exports
 
 **Documentation:**
-- [Release notes](https://platform.relativity.com/RelativityaiR/Content/What_s_new/Release_notes.htm) (Relativity aiR)
+- [Release notes](https://help.relativity.com/RelativityaiR/Content/What_s_New/Release_notes.htm) (Relativity aiR)
 - [Server to RelativityOne for Administrators](https://help.relativity.com/RelativityaiR/Content/Getting_Started/Server_to_RelativityOne_for_Administrators.md) (Relativity aiR)
 - [SDK API Comparison](https://platform.relativity.com/Server2026/Content/Relativity_Platform/SDK_API_Comparison.htm) (Server 2026)
 
@@ -312,7 +312,7 @@ The old Transfer API (Relativity.Transfer.Client with the Aspera and fileshare c
 **Use instead:** Relativity.Transfer.SDK (current version)
 
 **Documentation:**
-- [Release notes](https://platform.relativity.com/RelativityaiR/Content/What_s_new/Release_notes.htm) (Relativity aiR)
+- [Release notes](https://help.relativity.com/RelativityaiR/Content/What_s_New/Release_notes.htm) (Relativity aiR)
 - [SDK API Comparison](https://platform.relativity.com/Server2026/Content/Relativity_Platform/SDK_API_Comparison.htm) (Server 2026)
 
 ### AUTH-002: Legacy permissions API writes and SQL writes to permission tables
@@ -324,7 +324,7 @@ In aiR, legacy SQL permissions for Staging Reports and Usage Reports were retire
 **Use instead:** Access Control API / Next-Gen permissions API
 
 **Documentation:**
-- [Release notes](https://platform.relativity.com/RelativityaiR/Content/What_s_new/Release_notes.htm) (Relativity aiR)
+- [Release notes](https://help.relativity.com/RelativityaiR/Content/What_s_New/Release_notes.htm) (Relativity aiR)
 
 ### PAGE-001: Server-side custom pages (ASP.NET Web Forms and MVC)
 
@@ -336,7 +336,7 @@ Server-side custom pages, including MVC, still run in aiR, but on Relativity's h
 
 **Documentation:**
 - [Custom Pages migration](https://platform.relativity.com/RelativityaiR/Content/Customizing_the_UI/Custom_Pages_migration.htm) (Relativity aiR)
-- [Release notes](https://platform.relativity.com/RelativityaiR/Content/What_s_new/Release_notes.htm) (Relativity aiR)
+- [Release notes](https://help.relativity.com/RelativityaiR/Content/What_s_New/Release_notes.htm) (Relativity aiR)
 
 ### EH-001: Classic Forms customizations under Relativity Forms
 
@@ -430,7 +430,7 @@ Custom Integration Points providers built on the kCura.IntegrationPoints.* names
 **Use instead:** Relativity.IntegrationPoints.* namespaces and current DLLs
 
 **Documentation:**
-- [Release notes](https://platform.relativity.com/RelativityaiR/Content/What_s_new/Release_notes.htm) (Relativity aiR)
+- [Release notes](https://help.relativity.com/RelativityaiR/Content/What_s_New/Release_notes.htm) (Relativity aiR)
 - [Deprecated functionality](https://platform.relativity.com/Server2022/Content/What_s_new/Deprecated_functionality.htm) (Server 2022)
 
 ### PAGE-002: Removed main-window JavaScript functions and hosted libraries
@@ -477,7 +477,7 @@ Object Manager in aiR limits each application to 1,000 requests per minute per w
 **Use instead:** Pace with RateLimit headers, retry on Retry-After, send X-Kepler-Referrer, use Export Service API for bulk text
 
 **Documentation:**
-- [Release notes](https://platform.relativity.com/RelativityaiR/Content/What_s_new/Release_notes.htm) (Relativity aiR)
+- [Release notes](https://help.relativity.com/RelativityaiR/Content/What_s_New/Release_notes.htm) (Relativity aiR)
 - [Object Manager service](https://platform.relativity.com/RelativityaiR/Content/BD_Object_Manager/Object_Manager_service.htm) (Relativity aiR)
 
 ### DATA-007: Audit and login data read straight from SQL
