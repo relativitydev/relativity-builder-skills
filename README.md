@@ -5,6 +5,36 @@ Services team. This is the public counterpart to our internal skills catalog: th
 AI coding assistant) should know how to do when you're working against Relativity's APIs and SDKs, so
 you don't have to rediscover them yourself.
 
+## Available skills
+
+Just describe what you want in plain language and Claude picks the right skill. You can also call
+one directly with the command shown. Each skill's folder has its own README with the details.
+
+| I want to... | Skill | Direct command |
+|---|---|---|
+| Check whether my Relativity Server custom app will work in Relativity aiR | [air-readiness-scanner](skills/air-readiness-scanner/README.md) | `/relativity-builder-skills:air-readiness-scanner` |
+| Turn an old SQL script into Relativity REST API calls | [sql-to-api-converter](skills/sql-to-api-converter/README.md) | `/relativity-builder-skills:sql-to-api-converter` |
+| Build a background job that runs on a schedule or works through a queue | [agent-builder](skills/agent-builder/README.md) | `/relativity-builder-skills:agent-builder` |
+| Run code when something is saved, deleted, or opened, or when an app is installed | [event-handler-builder](skills/event-handler-builder/README.md) | `/relativity-builder-skills:event-handler-builder` |
+| Add my own REST endpoint to Relativity | [kepler-service-builder](skills/kepler-service-builder/README.md) | `/relativity-builder-skills:kepler-service-builder` |
+| Build a custom page (HTML and JavaScript) and add it as a tab | [javascript-custom-page-builder](skills/javascript-custom-page-builder/README.md) | `/relativity-builder-skills:javascript-custom-page-builder` |
+
+### Examples of what to ask
+
+- "Is my app ready for Relativity aiR?" (point it at your source folder or GitHub link)
+- "Convert this SQL script to API calls."
+- "Create a Relativity agent that processes a queue every few minutes."
+- "I need a pre-save event handler that blocks saves when a field is empty."
+- "Scaffold a Kepler service with one GET and one POST endpoint."
+- "Help me build my first custom page."
+
+### Good to know
+
+- **The builder skills create the code, but you deploy it.** They produce compiling projects (or a
+  zip, for custom pages) and walk you through uploading them in Relativity.
+- **They target Relativity aiR**, the cloud platform, not Relativity Server.
+- **Treat generated output as a starting point.** Test it in a non-production environment first.
+
 ## Using the skills
 
 How you consume this repo depends on your AI client.
