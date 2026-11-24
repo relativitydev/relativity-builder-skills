@@ -4,12 +4,14 @@ Checks a Relativity Server custom application for code that won't work the same 
 aiR, and writes a report that points at each file and line, explains what changes, and suggests the
 supported replacement with links to Relativity's documentation.
 
-It reads:
+Point it at your app's source code:
 
-- a local source folder,
-- a `.rap` (or `.zip`) application package, including the Relativity Scripts, custom page files,
-  and assemblies inside it, or
+- a local source folder, or
 - a GitHub repository link (cloned to a temporary folder and deleted afterward).
+
+It can also read a `.rap` (or `.zip`) application package if that's all you have, but expect
+thinner results. Most of a RAP is compiled code, so the scan can tell you what a DLL references
+but not the file, line, or how it's used. Use the source whenever you can.
 
 Inside Claude Code, Claude picks the skill up when you ask whether an app is ready for Relativity
 aiR. To invoke it directly:

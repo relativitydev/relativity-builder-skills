@@ -1,7 +1,7 @@
 ---
 name: air-readiness-scanner
 description: Scan a Relativity Server custom application (a local source folder, a .rap file, or a GitHub repository link) for code that will not work the same way in Relativity aiR, and produce a report that points at each file and line, explains what changes in aiR, and proposes the supported replacement with links to Relativity's documentation. Use when someone is moving a custom app, agent, event handler, custom page, Kepler service, Relativity Script, or integration from Relativity Server to Relativity aiR (RelativityOne), asks whether their app is "aiR ready" or "cloud ready", asks what will break after migrating, or wants a compatibility or readiness review of Relativity code.
-argument-hint: "[folder path, .rap file, or GitHub repository URL]"
+argument-hint: "[source folder or GitHub repository URL; a .rap only if there's no source]"
 ---
 
 # Relativity aiR readiness scanner
@@ -38,16 +38,28 @@ report worth reading.
 
 ## Step 1: Get the target
 
-Ask for whichever of these the user has, if they haven't said:
+Ask for the app's **source code**, as a local folder or a GitHub link:
 
 | Input | Example | Notes |
 |---|---|---|
 | Local folder | `C:\src\ContosoApp` | Source code. Best results. |
-| RAP or zip file | `C:\drops\ContosoApp.rap` | The script opens it and scans scripts, XML, custom page files, and the compiled assemblies inside. Compiled hits have no line numbers. |
-| GitHub link | `https://github.com/contoso/cleanup-app` or `.../tree/main/src` | Needs `git`. A private repo needs the user signed in to GitHub (`gh auth login` or Git Credential Manager). If cloning fails, ask them to clone it and give you the folder. |
+| GitHub link | `https://github.com/contoso/cleanup-app` or `.../tree/main/src` | Source code. Needs `git`. A private repo needs the user signed in to GitHub (`gh auth login` or Git Credential Manager). If cloning fails, ask them to clone it and give you the folder. |
+| RAP or zip file | `C:\drops\ContosoApp.rap` | Fallback only. See below. |
 
-Having both the source and the RAP is the best case: scan both, since the RAP shows what actually
-ships (bundled DLLs, Relativity Scripts, custom page files) and the source gives line numbers.
+**Prefer source over a RAP.** Most of a RAP is compiled code: agents, event handlers, and Kepler
+services arrive as DLLs. The scanner can still find type, method, and namespace names and SQL text
+inside them, but it can't give line numbers or read the code around a hit, so it can't rule out
+false positives or say how a call is used. Only custom page files and Relativity Scripts in a RAP
+are readable the way source is.
+
+- If the user offers only a RAP, ask once whether they have the source (a folder, a repo, or the
+  Visual Studio solution) before you use the RAP. Explain in a sentence that source gives line-level
+  results and a RAP mostly doesn't.
+- If they have the source, scan the source. If they also have the RAP, you may scan it as well to
+  see what actually ships (bundled DLLs, Relativity Scripts, custom page files), but report
+  line-level findings from the source.
+- If the RAP is all they have, go ahead with it, and say in the report's summary that the results
+  are limited because most of the app was scanned as compiled code.
 
 Also ask where to save the report. Default to `air-readiness-report.md` in the current working
 directory.
@@ -219,7 +231,11 @@ Scanned <target> (<commit if known>) on <date> against the Server to aiR catalog
 > haven't been run against Relativity aiR. Treat it as a starting checklist and test every change.
 
 ## Summary
-<2 to 4 sentences: overall readiness, the biggest pieces of work, anything that blocks the move.>
+<2 to 4 sentences: overall readiness, the biggest pieces of work, anything that blocks the move.
+If only a RAP was scanned, add: "This scan used the application package (RAP) only, so most of the
+app was read as compiled code. Findings in DLLs show what the code references, not where or how
+it's used. Scanning the source code would give file and line results.">
+
 
 | # | Severity | Area | What we found | Where |
 |---|---|---|---|---|
