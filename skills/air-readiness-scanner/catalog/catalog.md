@@ -2,7 +2,7 @@
 
 Generated 2026-11-24 from Relativity's public documentation. Used by the `air-readiness-scanner` skill as its rule set. Do not edit by hand; changes come from the maintainers' export.
 
-40 entries with code signatures, 2 planning items with nothing to scan for.
+40 entries with code signatures, 1 planning items with nothing to scan for.
 
 | ID | Title | Status | Use instead |
 | --- | --- | --- | --- |
@@ -46,7 +46,6 @@ Generated 2026-11-24 from Relativity's public documentation. Used by the `air-re
 | API-020 | Object Manager request rate limits and data egress limits | Restricted in aiR | Pace with RateLimit headers, retry on Retry-After, send X-Kepler-Referrer, use Export Service API for bulk text |
 | DATA-007 | Audit and login data read straight from SQL | Replaced in aiR | Audit API (relativity-audit/v1) |
 | API-021 | ARM API V1, Relativity.ARM.SDK, and unversioned ARM URLs | Replaced in aiR | ARM REST API V3 |
-| ADMIN-002 | Installing complex custom applications | Works differently in aiR | Request install through Support |
 | UI-001 | Classic Viewer extensions | Replaced in aiR | Review Interface extension (Review API) |
 
 ## Details
@@ -515,17 +514,6 @@ ARM REST API V3 is the version to build against in aiR, and Relativity publishes
 
 **Documentation:**
 - [ARM API V3 migration guide](https://platform.relativity.com/RelativityaiR/Content/BD_ARM/ARM_API_V3_migration_guide.htm) (Relativity aiR)
-
-### ADMIN-002: Installing complex custom applications
-
-**Works differently in aiR.** Server versions: all.
-
-In aiR the Application Library tab is hidden, and Relativity prefers that complex custom apps get installed through Product Support so it can check infrastructure, scale agents, and confirm compatibility. Plan the install with Support as part of the migration rather than uploading the RAP yourself.
-
-**Use instead:** Request install through Support
-
-**Documentation:**
-- [Server to RelativityOne for Administrators](https://help.relativity.com/RelativityaiR/Content/Getting_Started/Server_to_RelativityOne_for_Administrators.md) (Relativity aiR)
 
 ### UI-001: Classic Viewer extensions
 

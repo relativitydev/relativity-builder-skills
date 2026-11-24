@@ -1623,24 +1623,6 @@
   ],
   "plan_for": [
     {
-      "id": "ADMIN-002",
-      "title": "Installing complex custom applications",
-      "category": "admin-config",
-      "server_versions": "all",
-      "status": "changed",
-      "status_label": "Works differently in aiR",
-      "replacement": "Request install through Support",
-      "customer_wording": "In aiR the Application Library tab is hidden, and Relativity prefers that complex custom apps get installed through Product Support so it can check infrastructure, scale agents, and confirm compatibility. Plan the install with Support as part of the migration rather than uploading the RAP yourself.",
-      "docs": [
-        {
-          "url": "https://help.relativity.com/RelativityaiR/Content/Getting_Started/Server_to_RelativityOne_for_Administrators.md",
-          "title": "Server to RelativityOne for Administrators",
-          "edition": "Relativity aiR"
-        }
-      ],
-      "detection": []
-    },
-    {
       "id": "UI-001",
       "title": "Classic Viewer extensions",
       "category": "other",
